@@ -1,0 +1,23 @@
+<h2>Student Records</h2>
+<a href="/add"><button>Add New Student</button></a>
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>Name</th><th>Roll No</th><th>Degree</th>
+        <th>10%</th><th>12%</th><th>UG%</th><th>PG%</th><th>Actions</th>
+    </tr>
+    {{#each students}}
+    <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.rollno}}</td>
+        <td>{{this.degree}}</td>
+        <td>{{this.perc10}}</td>
+        <td>{{this.perc12}}</td>
+        <td>{{this.percUG}}</td>
+        <td>{{this.percPG}}</td>
+        <td>
+            <a href="/edit/{{this._id}}">Edit</a> |
+            <a href="/delete/{{this._id}}" onclick="return confirm('Delete this record?')">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
