@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+  <meta charset="UTF-8">
+  <title>📝 Modern AngularJS Todo App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e0eafc);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 50px 15px;
+    }
+    .todo-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #343a40;
+    }
+    input[type="text"] {
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+    .btn-add {
+      margin-top: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #e9ecef;
+      padding: 12px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+    .btn-delete {
+      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .empty-message {
+      text-align: center;
+      color: #6c757d;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body ng-controller="TodoController">
+  <div class="todo-box shadow">
+    <h2> My Todo List</h2>
+    <input type="text" ng-model="newTodo" class="form-control" placeholder="What do you need to do?">
+    <button class="btn btn-primary btn-add w-100" ng-click="addTodo()">Add Task</button>
+
+    <ul class="list-group mt-4">
+      <li ng-if="todos.length === 0" class="empty-message">No tasks yet. Add one!</li>
+      <li class="list-group-item" ng-repeat="todo in todos track by $index">
+        {{ todo.task }}
+        <button class="btn btn-outline-danger btn-sm btn-delete" ng-click="deleteTodo($index)">
+          <i class="bi bi-trash-fill"></i> Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <!-- Bootstrap Icons (Optional) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Custom Script -->
+  <script>
+    const app = angular.module('todoApp', []);
+    app.controller('TodoController', function($scope) {
+      $scope.todos = [];
+      $scope.newTodo = "";
+
+      $scope.addTodo = function() {
+        if ($scope.newTodo.trim() !== "") {
+          $scope.todos.push({ task: $scope.newTodo });
+          $scope.newTodo = "";
+        }
+      };
+
+      $scope.deleteTodo = function(index) {
+        $scope.todos.splice(index, 1);
+      };
+    });
+  </script>
+</body>
+</html>
